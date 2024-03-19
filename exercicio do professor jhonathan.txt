@@ -1,0 +1,298 @@
+EXERCICIO JHONATHAN
+
+Primeira questão:
+**********************************************************
+
+<?php
+$entrada = fgets(STDIN);
+list($a, $b, $c) = explode(" ", $entrada);
+
+$maiorAB = ($a + $b + abs($a-$b)) / 2;
+$maior = ($maiorAB + $c + abs($maiorAB-$c)) / 2;
+
+echo $maior . " eh o maior\n";
+?>
+
+segunda questão
+**********************************************************
+<?php
+
+$valor = intval(readline());
+$notas = array(100, 50, 20, 10, 5, 2, 1);
+
+echo $valor . "\n";
+
+foreach ($notas as $nota) {
+    $quantidade_notas = intdiv($valor, $nota);
+    echo $quantidade_notas . " nota(s) de R$ " . $nota . ",00\n";
+    $valor = $valor % $nota;
+}
+
+?>
+
+terceira questão
+**********************************************************
+<?php
+    $X = readline();
+    $Y = readline();
+
+    if($X > $Y) {
+        list($X, $Y) = array($Y, $X);
+    }
+
+    for($i = $X + 1; $i < $Y; $i++) {
+        if($i % 5 == 2 || $i % 5 == 3) {
+            echo $i . "\n";
+        }
+    }
+?>
+
+quarta questão
+**********************************************************
+
+<?php
+    while(true) {
+        fscanf(STDIN, "%d %d", $M, $N);
+
+        if($M <= 0 || $N <= 0) {
+            break;
+        }
+
+        if($M > $N) {
+            list($M, $N) = array($N, $M);
+        }
+
+        $sum = 0;
+        for($i = $M; $i <= $N; $i++) {
+            echo $i . " ";
+            $sum += $i;
+        }
+        echo "Sum=" . $sum . "\n";
+    }
+?>
+
+quinta questão
+**********************************************************
+
+<?php
+    while($line = fgets(STDIN)) {
+        $L = intval($line);
+        $speeds = array_map('intval', explode(' ', fgets(STDIN)));
+        $max_speed = max($speeds);
+
+        if($max_speed < 10) {
+            $level = 1;
+        } elseif($max_speed < 20) {
+            $level = 2;
+        } else {
+            $level = 3;
+        }
+
+        echo $level . "\n";
+    }
+?>
+
+sexta questão
+**********************************************************
+
+<?php
+
+function somaNumerosImpares($x, $y) {
+    $soma = 0;
+    $menor = min($x, $y);
+    $maior = max($x, $y);
+
+    for ($i = $menor + 1; $i < $maior; $i++) {
+        if ($i % 2 != 0) {
+            $soma += $i;
+        }
+    }
+    return $soma;
+}
+
+$x = intval(fgets(STDIN));
+$y = intval(fgets(STDIN));
+
+echo somaNumerosImpares($x, $y) . "\n";
+
+?>
+
+setima questão
+**********************************************************
+
+<?php
+
+function minutosParaDormir($h1, $m1, $h2, $m2) {
+    $minutos_atual = $h1 * 60 + $m1;
+    $minutos_despertador = $h2 * 60 + $m2;
+    
+    if ($minutos_despertador <= $minutos_atual) {
+        $minutos_despertador += 24 * 60;
+    }
+
+    $diferenca_minutos = $minutos_despertador - $minutos_atual;
+    
+    return $diferenca_minutos;
+}
+
+while (true) {
+    fscanf(STDIN, "%d %d %d %d", $h1, $m1, $h2, $m2);
+
+    if ($h1 == 0 && $m1 == 0 && $h2 == 0 && $m2 == 0) {
+        break;
+    }
+
+    echo minutosParaDormir($h1, $m1, $h2, $m2) . "\n";
+}
+
+?>
+
+oitava questão
+**********************************************************
+
+<?php
+
+$N = intval(trim(fgets(STDIN)));
+
+for ($i = 0; $i < $N; $i++) {
+    $M = trim(fgets(STDIN));
+
+    $novoM = "";
+    for ($j = 0; $j < strlen($M); $j++) {
+        $letra = $M[$j];
+        $novoM .= ctype_alpha($letra) ? chr(ord($letra) + 3) : $letra;
+    }
+    $M = strrev($novoM);
+    $middleIndex = strlen($M) / 2;
+    $M = substr($M, 0, $middleIndex) . strrev(str_replace(range('a', 'z'), range('z', 'a'), substr($M, $middleIndex)));
+
+    echo $M . "\n";
+}
+?>
+
+
+nona questão
+**********************************************************
+
+<?php
+
+function calcularLeds($numero) {
+    $leds_por_digito = array(
+        0 => 6, 1 => 2, 2 => 5, 3 => 5, 4 => 4,
+        5 => 5, 6 => 6, 7 => 3, 8 => 7, 9 => 6
+    );
+
+    $total_leds = 0;
+
+    for ($i = 0; $i < strlen($numero); $i++) {
+        $digito = intval($numero[$i]);
+        $total_leds += $leds_por_digito[$digito];
+    }
+
+    return $total_leds;
+}
+
+$casos_teste = intval(trim(fgets(STDIN)));
+
+for ($i = 0; $i < $casos_teste; $i++) {
+    $valor = trim(fgets(STDIN));
+    echo calcularLeds($valor) . " leds\n";
+}
+
+?>
+
+decima questão
+**********************************************************
+
+<?php
+
+function decifrar($texto, $deslocamento) {
+    $resultado = '';
+
+    for ($i = 0; $i < strlen($texto); $i++) {
+        $caractere = $texto[$i];
+        
+        if (ctype_upper($caractere)) {
+            $codigo = ord($caractere) - $deslocamento;
+            
+            if ($codigo < ord('A')) {
+                $codigo += 26;
+            }
+            
+            $caractere = chr($codigo);
+        }
+        
+        $resultado .= $caractere;
+    }
+
+    return $resultado;
+}
+
+$casos_teste = intval(trim(fgets(STDIN)));
+
+for ($i = 0; $i < $casos_teste; $i++) {
+    $texto_codificado = trim(fgets(STDIN));
+    $deslocamento = intval(trim(fgets(STDIN)));
+
+    echo decifrar($texto_codificado, $deslocamento) . PHP_EOL;
+}
+
+?>
+
+decima primeira questão
+**********************************************************
+
+<?php
+
+function ordenarNumeros($numeros) {
+    $pares = array();
+    $impares = array();
+
+    foreach ($numeros as $numero) {
+        if ($numero % 2 == 0) {
+            $pares[] = $numero;
+        } else {
+            $impares[] = $numero;
+        }
+    }
+
+    sort($pares);
+    rsort($impares);
+
+    foreach ($pares as $par) {
+        echo $par . PHP_EOL;
+    }
+
+    foreach ($impares as $impar) {
+        echo $impar . PHP_EOL;
+    }
+}
+
+$n = intval(trim(fgets(STDIN)));
+
+$numeros = array();
+
+for ($i = 0; $i < $n; $i++) {
+    $numeros[] = intval(trim(fgets(STDIN)));
+}
+
+ordenarNumeros($numeros);
+
+?>
+
+decima segunda questão
+**********************************************************
+
+<?php
+
+function MDC($a, $b) {
+    return $b == 0 ? $a : MDC($b, $a % $b);
+}
+
+$N = intval(trim(fgets(STDIN)));
+
+for ($i = 0; $i < $N; $i++) {
+    $input = trim(fgets(STDIN));
+    list($F1, $F2) = array_map('intval', explode(' ', $input));
+    echo MDC($F1, $F2) . "\n";
+}
